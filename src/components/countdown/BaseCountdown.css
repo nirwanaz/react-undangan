@@ -1,0 +1,21 @@
+.countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.countdown-inner {
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+}
+
+.countdown-item {
+    padding: 0.5em;
+    background: #000;
+    white-space: nowrap;
+}
+
+.countdown-expired {
+    background-color: red;
+}
