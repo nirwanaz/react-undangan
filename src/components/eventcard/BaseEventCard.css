@@ -1,0 +1,19 @@
+.eventcard {
+  display: flex;
+  flex-direction: column;
+}
+
+.eventcard-gmap {
+  display: flex;
+  flex-direction: column;
+}
+
+.eventcard-gmap > a {
+  text-decoration: none;
+  border: 2px solid blue;
+  color: blue;
+  border-radius: 2px;
+  width: max-content;
+  padding: .5rem;
+  margin: .2em 0;
+}

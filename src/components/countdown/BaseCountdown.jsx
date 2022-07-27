@@ -26,7 +26,13 @@ export const BaseCountdown = ({ eventDay }) => {
         const minutes = Math.floor((countdown % (1000 * 60 * 60)) / (1000 * 60))
         const seconds = Math.floor((countdown % (1000 * 60)) / (1000))
 
-        return {days, hours, minutes, seconds}
+        return formatValues([days, hours, minutes, seconds])
+    }
+
+    const formatValues = (values) => {
+        const dates = values.map((value) => (value.toString().length === 1 ? `0${value.toString()}` : value.toString()))
+        
+        return { days: dates[0], hours: dates[1], minutes: dates[2], seconds: dates[3] }
     }
 
     // const [days, hours, minutes, seconds] = getReturnValues(countdown)
@@ -34,7 +40,7 @@ export const BaseCountdown = ({ eventDay }) => {
     return (
         <div className="countdown">
             <div className="countdown-inner">
-                {countdown <= 0 ? <CountdownItem {...getReturnValues(countdown)}/> : <CountdownExpired />}
+                {countdown > 0 ? <CountdownItem {...getReturnValues(countdown)} /> : <CountdownExpired />}
             </div>
         </div>
     )

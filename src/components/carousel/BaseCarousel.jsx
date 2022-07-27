@@ -48,7 +48,7 @@ export const BaseCarousel = ({ width = 1000, slides, interval = 3000, controls =
         startSlideTimer()
 
         return () => stopSlideTimer()
-    }, [])
+    },)
 
     return (
         <div className="carousel" style={{ maxWidth: width }}>

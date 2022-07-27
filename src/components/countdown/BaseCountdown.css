@@ -5,15 +5,26 @@
 }
 
 .countdown-inner {
-    display: inline-block;
     text-align: center;
     color: #fff;
 }
 
 .countdown-item {
-    padding: 0.5em;
+    padding: 1em;
     background: #000;
     white-space: nowrap;
+    display: flex;
+}
+
+.countdown-datetime {
+    margin: 0 20px;
+    flex-basis: auto;
+}
+
+.countdown-datetime p {
+    font-weight: 700;
+    font-size: 5vh;
+    line-height: 0;
 }
 
 .countdown-expired {

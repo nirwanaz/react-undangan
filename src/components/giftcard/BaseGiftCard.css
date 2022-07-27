@@ -1,0 +1,46 @@
+.giftcard {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  border: 2px solid lightgray;
+  padding: .75em;
+  position: relative;
+  border-radius: 2%;
+  background-color: rgba(0, 0, 0, 1);
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.4);
+}
+
+.giftcard-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.giftcard-header img{
+  object-fit: cover;
+  object-position: center;
+}
+
+.giftcard-body {
+  display: block;
+  color: lightgray;
+  padding: 0 .5rem;
+}
+
+.giftcard-body h5 {
+  font-weight: 600;
+  text-transform: capitalize;
+  font-size: 2rem;
+  line-height: 0;
+}
+
+.giftcard-body p {
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 3px;
+}
+
+.giftcard-body > p > span{
+  text-transform: uppercase;
+  color: blue;
+  cursor: pointer;
+}
