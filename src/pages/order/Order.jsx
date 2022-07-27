@@ -2,14 +2,17 @@ import React from "react"
 import { useState } from "react"
 import { Container, Typography, Box, Stepper, Step, StepLabel } from "@mui/material"
 import FormWeddingCouple from "./components/FormWeddingCouple"
+import FormStepper from "./components/FormStepper"
 
 const steps = ['one', 'two', 'three']
 
 const Order = () => {
-  const [activeStep, setActiveStep] = useState(1)
+  const [activeStep, setActiveStep] = useState(0)
 
   const [formData, setFormData] = useState({
-    name: ""
+    name: "",
+    fatherName: "",
+    motherName: ""
   })
 
   const nextStep = () => {
@@ -29,16 +32,35 @@ const Order = () => {
     }))
   }
 
+  const renderForm = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <FormWeddingCouple
+            nextStep={nextStep}
+            handleFormData={handleInputData}
+            values={formData}
+          />
+        )
+      default:
+        return (
+          <div>default</div>
+        )
+    }
+  }
+
   return (
-    <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-    </Box>
+    <Container maxWidth="md">
+      <Box
+        component="div"
+        sx={{
+          padding: ".75rem 0"
+        }}
+      >
+        <FormStepper activeStep={activeStep} steps={steps} />
+        {renderForm(activeStep)}
+      </Box>
+    </Container>
   )
 }
 

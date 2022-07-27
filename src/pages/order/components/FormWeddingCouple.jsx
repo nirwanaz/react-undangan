@@ -8,11 +8,9 @@ const FormWeddingCouple = ({ nextStep, handleFormData, values }) => {
   
   const submitFormData = (e) => {
     e.preventDefault()
-    console.log('submit jalan')
+    setError(false)
 
-    if (values.name) setError(true)
-
-    if (!error) nextStep()
+    if (!values.name) setError(true)
   }
 
   return (
@@ -28,7 +26,7 @@ const FormWeddingCouple = ({ nextStep, handleFormData, values }) => {
         <FormLabel component="legend">Form Wedding Couple</FormLabel>
         <FormGroup>
           <TextField
-            name="name"
+            name="myname"
             label="Nama pria"
             value={values.name}
             onChange={handleFormData("name")}
@@ -39,10 +37,10 @@ const FormWeddingCouple = ({ nextStep, handleFormData, values }) => {
         </FormGroup>
         <FormGroup>
           <TextField
-            id="name"
+            name="father"
             label="Nama Bapak"
-            value={values.name}
-            onChange={handleFormData("name")}
+            value={values.fatherName}
+            onChange={handleFormData("fatherName")}
             error={error}
             margin="normal"
           />
@@ -50,10 +48,10 @@ const FormWeddingCouple = ({ nextStep, handleFormData, values }) => {
         </FormGroup>
         <FormGroup>
           <TextField
-            id="name"
+            name="mother"
             label="Nama Ibu"
-            value={values.name}
-            onChange={handleFormData("name")}
+            value={values.motherName}
+            onChange={handleFormData("motherName")}
             error={error}
             margin="normal"
           />
