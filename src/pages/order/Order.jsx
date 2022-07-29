@@ -1,6 +1,6 @@
 import React from "react"
 import { useState } from "react"
-import { Container, Typography, Box, Stepper, Step, StepLabel } from "@mui/material"
+import { Container, Box } from "@mui/material"
 import FormWeddingCouple from "./components/FormWeddingCouple"
 import FormStepper from "./components/FormStepper"
 
@@ -10,9 +10,18 @@ const Order = () => {
   const [activeStep, setActiveStep] = useState(0)
 
   const [formData, setFormData] = useState({
-    name: "",
-    fatherName: "",
-    motherName: ""
+    groomFullName: "",
+    groomCallName: "",
+    groomFatherName: "",
+    groomMotherName: "",
+    groomAdditional: "",
+    groomPhoto: "",
+    brideFullName: "",
+    brideCallName: "",
+    brideFatherName: "",
+    brideMotherName: "",
+    brideAdditional: "",
+    bridePhoto: "",
   })
 
   const nextStep = () => {
@@ -24,7 +33,8 @@ const Order = () => {
   }
 
   const handleInputData = input => e => {
-    const { value } = e.target
+    const target = e.target
+    const value = target.type === "file" ? target.files[0] : target.value
 
     setFormData(prevState => ({
       ...prevState,
