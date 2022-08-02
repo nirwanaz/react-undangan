@@ -5,21 +5,22 @@ import Box from "@mui/material/Box"
 import { Avatar } from "@mui/material";
 
 
-const FormUploadImage = ({ handleFile, name }) => {
-  const [file, setFile] = useState({
-    current: undefined,
-    preview: undefined,
-  })
+const FormUploadImage = ({ handleFile, name, values }) => {
+  const [selectedFile, setSelectedFile] = useState({})
 
-  const selectFile = (e) => {    
-    setFile({
+  const selectFile = (e) => {
+    handleFile(e)
+    
+    setSelectedFile({
       current: e.target.files[0],
       preview: URL.createObjectURL(e.target.files[0])
     })
   }
 
   const unSelectFile = () => {
-    setFile({
+    values[name] = undefined
+
+    setSelectedFile({
       current: undefined,
       preview: undefined
     })
@@ -32,14 +33,14 @@ const FormUploadImage = ({ handleFile, name }) => {
         alignItems="center"
         flexDirection="column"
       >
-        {file.preview ? (
+        {selectedFile.preview ? (
           <Box
             display="flex"
             flexDirection="column"
           >
             <Avatar
               alt="preview-img"
-              src={file.preview}
+              src={selectedFile.preview}
               sx={{ width: 240, height: 240, margin: "15px 0"}}
             />
             <Button variant="outlined" color="primary" component="span" onClick={unSelectFile}>
@@ -52,11 +53,10 @@ const FormUploadImage = ({ handleFile, name }) => {
           >
             <input
               type="file"
-              id={name}
+              name={name}
               style={{ display: 'none' }}
               accept="image/*"
               onChange={selectFile}
-              onClick={handleFile(name)}
             />
             <Button
               variant="outlined"
