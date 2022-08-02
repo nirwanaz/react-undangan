@@ -8,7 +8,7 @@ import { LocalizationProvider, TimePicker, DatePicker } from "@mui/x-date-picker
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import idLocale from "date-fns/locale/id"
 
-const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values }) => {
+const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, onClone }) => {
   const [timeStart, setTimeStart] = React.useState(null)
   const [timeEnd, setTimeEnd] = React.useState(null)
   const [dateStart, setDateStart] = React.useState(null)
@@ -25,88 +25,96 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values }) 
     <FormControl component="fieldset" fullWidth>
       <FormLabel component="legend">Acara Pernikahan</FormLabel>
       <Stack spacing={3}>
-        <TextField
-          id="eventname"
-          label="Nama Acara"
-          name="eventName"
-          onChange={onChangeInputHandler}
-          fullWidth
-          
-        />
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={idLocale}>
-          <DatePicker
-            label="Tanggal"
-            value={dateStart}
-            minDate={new Date()}
-            disableMaskedInput
-            onChange={(newValue) => {
-              setDateStart(newValue)
-            }}
-            inputFormat="PPPP"
-            renderInput={(props) => {
-                values.eventDateStart = props.inputProps.value
-                return (
-                  <TextField {...props} name="eventDateStart" />
-                )
-              }}
-          />
-          <Stack spacing={3} direction="row">
-            <TimePicker
-              label="Waktu Mulai"
-              ampm={false}
-              value={timeStart}
-              onChange={(newValue) => {
-                setTimeStart(newValue)
-              }}
-              renderInput={(props) => {
-                values.eventTimeStart = props.inputProps.value
-                return (
-                  <TextField {...props} name="eventTimeStart" fullWidth/>
-                )
-              }}
+        {values.events.map((event, index) => (
+          <>
+            <TextField
+              key={index}
+              id="eventname"
+              label="Nama Acara"
+              name="eventName"
+              onChange={onChangeInputHandler(index)}
+              fullWidth
+              
             />
-            <Box sx={{ m: 2, alignSelf: "center" }} component="span">Sampai</Box>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value="selesai"
-                  name="eventTimeEnd"
-                  onChange={(e) => {
-                    onChangeInputHandler(e)
-                    setChecked(e.target.checked)
+            <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={idLocale}>
+              <DatePicker
+                label="Tanggal"
+                value={dateStart}
+                minDate={new Date()}
+                disableMaskedInput
+                onChange={(newValue) => {
+                  setDateStart(newValue)
+                }}
+                inputFormat="PPPP"
+                renderInput={(props) => {
+                    values.eventDateStart = props.inputProps.value
+                    return (
+                      <TextField {...props} name="eventDateStart" />
+                    )
+                  }}
+              />
+              <Stack spacing={3} direction="row">
+                <TimePicker
+                  label="Waktu Mulai"
+                  ampm={false}
+                  value={timeStart}
+                  onChange={(newValue) => {
+                    setTimeStart(newValue)
+                  }}
+                  renderInput={(props) => {
+                    values.eventTimeStart = props.inputProps.value
+                    return (
+                      <TextField {...props} name="eventTimeStart" fullWidth/>
+                    )
                   }}
                 />
+                <Box sx={{ m: 2, alignSelf: "center" }} component="span">Sampai</Box>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value="selesai"
+                      name="eventTimeEnd"
+                      onChange={(e) => {
+                        onChangeInputHandler(e)
+                        setChecked(e.target.checked)
+                      }}
+                    />
+                    }
+                  label="Selesai"
+                />
+                
+                {!checked && 
+                  <TimePicker
+                    label="Waktu Berkahir"
+                    ampm={false}
+                    value={timeEnd}
+                    onChange={(newValue) => {
+                      setTimeEnd(newValue)
+                    }}
+                    renderInput={(props) => {
+                      values.eventTimeEnd = props.inputProps.value
+                      return (
+                        <TextField {...props} name="eventTimeEnd" fullWidth/>
+                      )
+                    }}
+                  />
                 }
-              label="Selesai"
+
+              </Stack>
+            </LocalizationProvider>
+            <TextField
+              id="eventlocation"
+              label="Lokasi Acara"
+              name="eventLocation"
+              onChange={onChangeInputHandler}
+              fullWidth
+
             />
-            
-            {!checked && 
-              <TimePicker
-                label="Waktu Berkahir"
-                ampm={false}
-                value={timeEnd}
-                onChange={(newValue) => {
-                  setTimeEnd(newValue)
-                }}
-                renderInput={(props) => {
-                  values.eventTimeEnd = props.inputProps.value
-                  return (
-                    <TextField {...props} name="eventTimeEnd" fullWidth/>
-                  )
-                }}
-              />
-            }
-
-          </Stack>
-        </LocalizationProvider>
-        <TextField
-          id="eventlocation"
-          label="Lokasi Acara"
-          name="eventLocation"
-          onChange={onChangeInputHandler}
-          fullWidth
-
-        />
+          </>
+        ))}
+        <Button variant="outlined" color="secondary" onClick={onClone}>
+          Tambah Acara
+        </Button>
         <Stack spacing={2} direction="row">
           <Button variant="contained" color="primary" onClick={previous}>
             previous

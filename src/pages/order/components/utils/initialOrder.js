@@ -1,4 +1,4 @@
-const initialOrder = () => ({
+const initialOrder = {
   couple: {
     groom: {
       fullName: "",
@@ -15,7 +15,9 @@ const initialOrder = () => ({
       additional: ""
     }
   },
-  events: [],
-})
+  events: [
+    { name: "", date: "", timeStart: "", timeEnd: "", location: "" }
+  ],
+}
 
 export default initialOrder
