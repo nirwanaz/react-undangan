@@ -5,14 +5,16 @@ const initialOrder = {
       callName: "",
       fatherName: "",
       motherName: "",
-      additional: ""
+      additional: "",
+      photo: null
     },
     bride: {
       fullName: "",
       callName: "",
       fatherName: "",
       motherName: "",
-      additional: ""
+      additional: "",
+      photo: null
     }
   },
   events: [

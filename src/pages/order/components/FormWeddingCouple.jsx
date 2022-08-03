@@ -4,15 +4,13 @@ import Grid from '@mui/material/Grid';
 import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import FormUploadImage from "./FormUploadImage";
 
-const FormWeddingCouple = ({ nextStep, onChangeInputHandler, values }) => {  
+const FormWeddingCouple = ({ nextStep, onChangeInputHandler, onDeleteImgHandler, values }) => {  
   const [error, setError] = useState(false)
-  const { groomFullName, groomCallName, groomFatherName, groomMotherName, groomAdditional } = values
-  const { brideFullName, brideCallName, brideFatherName, brideMotherName, brideAdditional } = values
-
+  const { groom, bride } = values.couple
   const submitFormData = (e) => {
     e.preventDefault()
 
-    nextStep()
+    console.log(values.couple)
   }
 
 return (
@@ -27,11 +25,11 @@ return (
         direction="row-reverse"
       >
         <Grid item md>
-          <FormUploadImage handleFile={onChangeInputHandler} name="bridePhoto" values={values}/>
+          <FormUploadImage handleFile={onChangeInputHandler} name="bride.photo" values={bride} deleteFile={onDeleteImgHandler("bride")}/>
           <TextField
-            name="brideFullName"
+            name="bride.fullName"
             label="Nama Wanita"
-            defaultValue={brideFullName}
+            defaultValue={bride.fullName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -39,9 +37,9 @@ return (
             fullWidth
           />
           <TextField
-            name="brideCallName"
+            name="bride.callName"
             label="Nama panggilan"
-            defaultValue={brideCallName}
+            defaultValue={bride.callName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -49,9 +47,9 @@ return (
             fullWidth
           />
           <TextField
-            name="brideFatherName"
+            name="bride.fatherName"
             label="Nama Bapak"
-            defaultValue={brideFatherName}
+            defaultValue={bride.fatherName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -59,9 +57,9 @@ return (
             fullWidth
           />
           <TextField
-            name="brideMotherName"
+            name="bride.motherName"
             label="Nama Ibu"
-            defaultValue={brideMotherName}
+            defaultValue={bride.motherName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -69,9 +67,9 @@ return (
             fullWidth
           />
           <TextField
-            name="brideAdditional"
+            name="bride.additional"
             label="Informasi tambahan"
-            defaultValue={brideAdditional}
+            defaultValue={bride.additional}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -79,12 +77,13 @@ return (
             fullWidth
           />
         </Grid>
+
         <Grid item md>
-          <FormUploadImage handleFile={onChangeInputHandler} name="groomPhoto" values={values}/>
+          <FormUploadImage handleFile={onChangeInputHandler} name="groom.photo" values={groom} deleteFile={onDeleteImgHandler("groom")}/>
           <TextField
-            name="groomFullName"
+            name="groom.fullName"
             label="Nama pria"
-            defaultValue={groomFullName}
+            defaultValue={groom.fullName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -92,9 +91,9 @@ return (
             fullWidth
           />
           <TextField
-            name="groomCallName"
+            name="groom.callName"
             label="Nama panggilan"
-            defaultValue={groomCallName}
+            defaultValue={groom.callName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -102,9 +101,9 @@ return (
             fullWidth
           />
           <TextField
-            name="groomFatherName"
+            name="groom.fatherName"
             label="Nama Bapak"
-            defaultValue={groomFatherName}
+            defaultValue={groom.fatherName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -112,9 +111,9 @@ return (
             fullWidth
           />
           <TextField
-            name="groomMotherName"
+            name="groom.motherName"
             label="Nama Ibu"
-            defaultValue={groomMotherName}
+            defaultValue={groom.motherName}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}
@@ -122,9 +121,9 @@ return (
             fullWidth
           />
           <TextField
-            name="groomAdditional"
+            name="groom.additional"
             label="Informasi tambahan"
-            defaultValue={groomAdditional}
+            defaultValue={groom.additional}
             onChange={onChangeInputHandler}
             error={error}
             helperText={error && 'this is a required field'}

@@ -9,6 +9,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import idLocale from "date-fns/locale/id"
 
 const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, onClone }) => {
+  const { events } = values
   
   const checked = (state) => {
     return state.timeEnd === "selesai"
@@ -25,7 +26,7 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, on
     <FormControl component="fieldset" fullWidth>
       <FormLabel component="legend">Acara Pernikahan</FormLabel>
       <Stack spacing={3}>
-        {values.events.map((event, index) => (
+        {events.map((event, index) => (
           <Stack spacing={2} key={index}>
             <TextField
               id="eventname"

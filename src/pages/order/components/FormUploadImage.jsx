@@ -1,30 +1,16 @@
 import React from "react";
-import { useState } from "react"
 import Button from '@mui/material/Button'
 import Box from "@mui/material/Box"
 import { Avatar } from "@mui/material";
 
+const FormUploadImage = ({ handleFile, name, values, deleteFile }) => {
+  const { photo } = values
 
-const FormUploadImage = ({ handleFile, name, values }) => {
-  const [selectedFile, setSelectedFile] = useState({})
-
-  const selectFile = (e) => {
-    handleFile(e)
-    
-    setSelectedFile({
-      current: e.target.files[0],
-      preview: URL.createObjectURL(e.target.files[0])
-    })
+  const preview = img => {
+    return URL.createObjectURL(img)
   }
 
-  const unSelectFile = () => {
-    values[name] = undefined
-
-    setSelectedFile({
-      current: undefined,
-      preview: undefined
-    })
-  }
+  const unPreview = () => deleteFile
 
   return (
     <div className="image-upload">
@@ -33,17 +19,17 @@ const FormUploadImage = ({ handleFile, name, values }) => {
         alignItems="center"
         flexDirection="column"
       >
-        {selectedFile.preview ? (
+        {photo ? (
           <Box
             display="flex"
             flexDirection="column"
           >
             <Avatar
               alt="preview-img"
-              src={selectedFile.preview}
+              src={preview(photo)}
               sx={{ width: 240, height: 240, margin: "15px 0"}}
             />
-            <Button variant="outlined" color="primary" component="span" onClick={unSelectFile}>
+            <Button variant="outlined" color="primary" component="span" onClick={unPreview}>
               Remove Image
             </Button>
           </Box>
@@ -56,7 +42,7 @@ const FormUploadImage = ({ handleFile, name, values }) => {
               name={name}
               style={{ display: 'none' }}
               accept="image/*"
-              onChange={selectFile}
+              onChange={handleFile}
             />
             <Button
               variant="outlined"

@@ -7,20 +7,30 @@ import FormWeddingEvent from "./components/FormWeddingEvent"
 import initialOrder from "./components/utils/initialOrder"
 
 const steps = ['one', 'two', 'three']
+const ACTIONS = {
+  UPDATE: {
+    COUPLE: "update-couple",
+    EVENTS: "update-events"
+  },
+  ADD: {
+    EVENT: "add-event"
+  },
+}
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'HANDLE COUPLE':
+    case ACTIONS.UPDATE.COUPLE:
       return { 
         ...state, 
         couple: {
           ...state.couple,
           [action.object]: {
-            ...state[action.object],
+            ...state.couple[action.object],
             [action.field]: action.payload
           }
-        }}
-    case 'ADD NEW EVENT':
+        }
+      }
+    case ACTIONS.ADD.EVENT:
       return {
         ...state,
         events: [
@@ -28,7 +38,7 @@ const reducer = (state, action) => {
           action.data
         ]
       }
-    case 'HANDLE EVENTS':
+    case ACTIONS.UPDATE.EVENTS:
       return {
         ...state,
         events: state.events.map((event, index) => {
@@ -52,19 +62,30 @@ const Order = () => {
     setActiveStep(activeStep - 1)
   }
 
-  const handleFormCouple = input => e => {
+  const handleFormCouple = e => {
     const { name, value, files, type } = e.target
+    const names = name.split('.')
+    
     dispatch({
-      type: "HANDLE COUPLE",
-      object: input,
-      field: name,
+      type: ACTIONS.UPDATE.COUPLE,
+      object: names[0],
+      field: names[1],
       payload: type === "file" ? files[0] : value
+    })
+  }
+
+  const handlePhotoCouple = (object) => {
+    dispatch({
+      type: ACTIONS.UPDATE.COUPLE,
+      object: object,
+      field: "photo",
+      payload: undefined
     })
   }
 
   const addNewFormEvent = () => {
     dispatch({
-      type: "ADD NEW EVENT",
+      type: ACTIONS.ADD.EVENT,
       data: { name: "", date: null, timeStart: null, timeEnd: null, location: "" }
     })
   }
@@ -74,7 +95,7 @@ const Order = () => {
     const { name, value } = target
 
     dispatch({
-      type: "HANDLE EVENTS",
+      type: ACTIONS.UPDATE.EVENTS,
       index: index,
       field: name,
       payload: value
@@ -96,6 +117,7 @@ const Order = () => {
           <FormWeddingCouple
             nextStep={nextStep}
             onChangeInputHandler={handleFormCouple}
+            onDeleteImgHandler={handlePhotoCouple}
             values={state}
           />
         )
