@@ -16,7 +16,7 @@ const initialOrder = {
     }
   },
   events: [
-    { name: "", date: "", timeStart: "", timeEnd: "", location: "" }
+    { name: "", date: null, timeStart: null, timeEnd: null, location: "" }
   ],
 }
 

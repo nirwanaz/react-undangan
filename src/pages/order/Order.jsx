@@ -42,7 +42,7 @@ const reducer = (state, action) => {
 
 const Order = () => {
   const [activeStep, setActiveStep] = useState(0)
-  const [Order, setOrder] = useReducer(reducer, initialOrder)
+  const [state, dispatch] = useReducer(reducer, initialOrder)
 
   const nextStep = () => {
     setActiveStep(activeStep + 1)
@@ -52,20 +52,9 @@ const Order = () => {
     setActiveStep(activeStep - 1)
   }
 
-  const onChangeInputHandler = e => {
-    const target = e.target
-    const name = target.name
-    const value = target.type === "file" ? target.files[0] : target.value
-
-    setOrder(prevState => ({
-      ...prevState,
-      [name]: value
-    }))
-  }
-
   const handleFormCouple = input => e => {
     const { name, value, files, type } = e.target
-    setOrder({
+    dispatch({
       type: "HANDLE COUPLE",
       object: input,
       field: name,
@@ -74,16 +63,17 @@ const Order = () => {
   }
 
   const addNewFormEvent = () => {
-    setOrder({
+    dispatch({
       type: "ADD NEW EVENT",
-      data: { name: "", date: "", timeStart: "", timeEnd: "", location: "" }
+      data: { name: "", date: null, timeStart: null, timeEnd: null, location: "" }
     })
   }
 
-  const handleFormEvent = index => e => {
-    const { name, value } = e.target
+  const handleFormEvent = index => (e) => {
+    const target = e.target || e
+    const { name, value } = target
 
-    setOrder({
+    dispatch({
       type: "HANDLE EVENTS",
       index: index,
       field: name,
@@ -96,7 +86,7 @@ const Order = () => {
 
     const fd = new FormData()
 
-    fd.append("groomImg", Order.groomImg)
+    fd.append("groomImg", state.groomImg)
   }
 
   const renderForm = (step) => {
@@ -105,8 +95,8 @@ const Order = () => {
         return (
           <FormWeddingCouple
             nextStep={nextStep}
-            onChangeInputHandler={onChangeInputHandler}
-            values={Order}
+            onChangeInputHandler={handleFormCouple}
+            values={state}
           />
         )
       case 1:
@@ -115,7 +105,7 @@ const Order = () => {
             nextStep={nextStep}
             prevStep={prevStep}
             onChangeInputHandler={handleFormEvent}
-            values={Order}
+            values={state}
             onClone={addNewFormEvent}
           />
         )

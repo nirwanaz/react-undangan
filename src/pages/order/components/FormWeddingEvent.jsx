@@ -9,10 +9,10 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 import idLocale from "date-fns/locale/id"
 
 const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, onClone }) => {
-  const [timeStart, setTimeStart] = React.useState(null)
-  const [timeEnd, setTimeEnd] = React.useState(null)
-  const [dateStart, setDateStart] = React.useState(null)
-  const [checked, setChecked] = React.useState(false)
+  
+  const checked = (state) => {
+    return state.timeEnd === "selesai"
+  }
 
   const validation = () => {
     // nextStep()
@@ -26,12 +26,12 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, on
       <FormLabel component="legend">Acara Pernikahan</FormLabel>
       <Stack spacing={3}>
         {values.events.map((event, index) => (
-          <>
+          <Stack spacing={2} key={index}>
             <TextField
-              key={index}
               id="eventname"
               label="Nama Acara"
-              name="eventName"
+              name="name"
+              defaultValue={event.name}
               onChange={onChangeInputHandler(index)}
               fullWidth
               
@@ -39,32 +39,30 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, on
             <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={idLocale}>
               <DatePicker
                 label="Tanggal"
-                value={dateStart}
+                value={event.date}
                 minDate={new Date()}
                 disableMaskedInput
-                onChange={(newValue) => {
-                  setDateStart(newValue)
+                onChange={(pickerValue) => {
+                  onChangeInputHandler(index)({ name: "date", value: pickerValue })
                 }}
-                inputFormat="PPPP"
+                inputFormat="PPP"
                 renderInput={(props) => {
-                    values.eventDateStart = props.inputProps.value
-                    return (
-                      <TextField {...props} name="eventDateStart" />
-                    )
-                  }}
+                  return (
+                    <TextField {...props} />
+                  )
+                }}
               />
               <Stack spacing={3} direction="row">
                 <TimePicker
                   label="Waktu Mulai"
                   ampm={false}
-                  value={timeStart}
-                  onChange={(newValue) => {
-                    setTimeStart(newValue)
+                  value={event.timeStart}
+                  onChange={(pickerValue) => {
+                    onChangeInputHandler(index)({ name: "timeStart", value: pickerValue })
                   }}
                   renderInput={(props) => {
-                    values.eventTimeStart = props.inputProps.value
                     return (
-                      <TextField {...props} name="eventTimeStart" fullWidth/>
+                      <TextField {...props} fullWidth/>
                     )
                   }}
                 />
@@ -72,29 +70,30 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, on
                 <FormControlLabel
                   control={
                     <Checkbox
+                      id="eventTimeEndChecked"
                       value="selesai"
-                      name="eventTimeEnd"
+                      checked={checked(event)}
+                      name="timeEnd"
                       onChange={(e) => {
-                        onChangeInputHandler(e)
-                        setChecked(e.target.checked)
+                        onChangeInputHandler(index)(e)
                       }}
                     />
                     }
                   label="Selesai"
                 />
                 
-                {!checked && 
+                {!checked(event) && 
                   <TimePicker
                     label="Waktu Berkahir"
                     ampm={false}
-                    value={timeEnd}
-                    onChange={(newValue) => {
-                      setTimeEnd(newValue)
+                    value={event.timeEnd}
+                    minTime={event.timeStart}
+                    onChange={(pickerValue) => {
+                      onChangeInputHandler(index)({ name: "timeEnd", value: pickerValue })
                     }}
                     renderInput={(props) => {
-                      values.eventTimeEnd = props.inputProps.value
                       return (
-                        <TextField {...props} name="eventTimeEnd" fullWidth/>
+                        <TextField {...props} fullWidth />
                       )
                     }}
                   />
@@ -105,12 +104,13 @@ const FormWeddingEvent = ({ nextStep, prevStep, onChangeInputHandler, values, on
             <TextField
               id="eventlocation"
               label="Lokasi Acara"
-              name="eventLocation"
-              onChange={onChangeInputHandler}
+              name="location"
+              defaultValue={event.location}
+              onChange={onChangeInputHandler(index)}
               fullWidth
 
             />
-          </>
+          </Stack>
         ))}
         <Button variant="outlined" color="secondary" onClick={onClone}>
           Tambah Acara
