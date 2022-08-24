@@ -3,14 +3,14 @@ import Button from '@mui/material/Button'
 import Box from "@mui/material/Box"
 import { Avatar } from "@mui/material";
 
-const FormUploadImage = ({ handleFile, name, values, deleteFile }) => {
+const FormUploadImage = ({ handleFile, name, values }) => {
   const { photo } = values
 
   const preview = img => {
     return URL.createObjectURL(img)
   }
 
-  const unPreview = () => deleteFile
+  const unPreview = () => handleFile({ target: {name: name, value: undefined, type: "text" }})
 
   return (
     <div className="image-upload">

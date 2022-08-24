@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 import FormUploadImage from "./FormUploadImage";
 
-const FormWeddingCouple = ({ nextStep, onChangeInputHandler, onDeleteImgHandler, values }) => {  
+const FormWeddingCouple = ({ nextStep, onChangeInputHandler, values }) => {  
   const [error, setError] = useState(false)
   const { groom, bride } = values.couple
   const submitFormData = (e) => {
@@ -25,7 +25,7 @@ return (
         direction="row-reverse"
       >
         <Grid item md>
-          <FormUploadImage handleFile={onChangeInputHandler} name="bride.photo" values={bride} deleteFile={onDeleteImgHandler("bride")}/>
+          <FormUploadImage handleFile={onChangeInputHandler} name="bride.photo" values={bride}/>
           <TextField
             name="bride.fullName"
             label="Nama Wanita"
@@ -79,7 +79,7 @@ return (
         </Grid>
 
         <Grid item md>
-          <FormUploadImage handleFile={onChangeInputHandler} name="groom.photo" values={groom} deleteFile={onDeleteImgHandler("groom")}/>
+          <FormUploadImage handleFile={onChangeInputHandler} name="groom.photo" values={groom} />
           <TextField
             name="groom.fullName"
             label="Nama pria"

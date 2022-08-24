@@ -74,15 +74,6 @@ const Order = () => {
     })
   }
 
-  const handlePhotoCouple = (object) => {
-    dispatch({
-      type: ACTIONS.UPDATE.COUPLE,
-      object: object,
-      field: "photo",
-      payload: undefined
-    })
-  }
-
   const addNewFormEvent = () => {
     dispatch({
       type: ACTIONS.ADD.EVENT,
@@ -117,7 +108,6 @@ const Order = () => {
           <FormWeddingCouple
             nextStep={nextStep}
             onChangeInputHandler={handleFormCouple}
-            onDeleteImgHandler={handlePhotoCouple}
             values={state}
           />
         )
