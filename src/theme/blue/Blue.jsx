@@ -4,7 +4,6 @@ import { BaseCarousel } from "../../components/carousel/BaseCarousel";
 import { BaseAlbum } from "../../components/album/BaseAlbum";
 import { BaseModal } from "../../components/modal/BaseModal";
 
-import "./Blue.css"
 import { createTheme, Grid, responsiveFontSizes } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
 

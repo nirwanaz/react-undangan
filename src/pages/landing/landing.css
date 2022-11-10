@@ -1,0 +1,56 @@
+.custom-shape-divider-bottom-1667789128 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1667789128 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-bottom-1667789128 .shape-fill {
+    fill: #fff;
+}
+
+.text-gradient {
+    color: rgb(19, 18, 18);
+	font-weight: 900;
+    font-family: "Inter", sans-serif;
+	text-shadow: 
+		-0.0075em 0.0075em 0 rgba(241, 237, 237, 0.932),
+		0.005em 0.005em 0 rgba(241, 232, 232, 0.979),
+		0.01em 0.01em 0 rgba(209, 167, 167, 0.904), 
+		0.015em 0.015em rgba(243, 183, 183, 0.87), 
+		0.02em 0.02em 0 rgba(233, 173, 173, 0.966), 
+		0.025em 0.025em 0 rgba(245, 231, 231, 0.884),
+		0.03em 0.03em 0 rgba(241, 234, 234, 0.911),
+		0.035em 0.035em 0 rgba(250, 246, 246, 0.918);
+}
+
+/* footer */
+
+.custom-shape-divider-footer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-footer svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.custom-shape-divider-footer .shape-fill-footer {
+    fill: #fff;
+}
